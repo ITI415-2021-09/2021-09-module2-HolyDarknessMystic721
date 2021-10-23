@@ -4,7 +4,7 @@ using UnityEngine;
 
 //the SlotDef class is not a subclass of MonoBehavior, so it doesn't need a seperate C# script
 
-[System.Serialiazable] // this makes SlotDefs visible in the Unity Inspector pane
+[System.Serializable] // this makes SlotDefs visible in the Unity Inspector pane
 public class SlotDef {
     public float x;
     public float y;
@@ -33,7 +33,7 @@ public class Layout : MonoBehaviour {
     public void ReadLayout(string xmlText) {
         xmlr = new PT_XMLReader();
         xmlr.Parse(xmlText); //the XML is parsed
-        xml = xmlr.xml["xmlr"][0]; //amd xml is set as a shortcut to the XML
+        xml = xmlr.xml["xml"][0]; //amd xml is set as a shortcut to the XML
 
         // read in the multiplier, which sets card spacing
         multiplier.x = float.Parse(xml["multiplier"][0].att("x"));
@@ -55,8 +55,8 @@ public class Layout : MonoBehaviour {
             }
 
             //Various attributes are parsed into numerical values
-            tSD.x = float.Parse(slotsX[i],att("x"));
-            tSD.y = float.Parse(slotsX[i],att("y"));
+            tSD.x = float.Parse(slotsX[i].att("x"));
+            tSD.y = float.Parse(slotsX[i].att("y"));
             tSD.layerID = int.Parse(slotsX[i].att("layer"));
             //this converts the number of the LayerID into the text layerName
             tSD.layerName = sortingLayerNames[tSD.layerID];
@@ -67,12 +67,12 @@ public class Layout : MonoBehaviour {
                     tSD.faceUp = (slotsX[i].att("faceup") == "1");
                     tSD.id = int.Parse(slotsX[i].att("id"));
                     if (slotsX[i].HasAtt("hiddenby")) {
-                        string[] hiding = slotsX.att("hiddenby").Split(',');
+                        string[] hiding = slotsX[i].att("hiddenby").Split(',');
                         foreach (string s in hiding) {
                             tSD.hiddenBy.Add(int.Parse(s));
                         }
                     }
-                    SlotDefs.Add(tSD);
+                    slotDefs.Add(tSD);
                     break;
 
                 case "drawpile":
