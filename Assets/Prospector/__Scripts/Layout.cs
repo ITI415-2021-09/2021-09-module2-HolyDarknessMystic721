@@ -66,10 +66,10 @@ public class Layout : MonoBehaviour {
                 case "slot":
                     tSD.faceUp = (slotsX[i].att("faceup") == "1");
                     tSD.id = int.Parse(slotsX[i].att("id"));
-                    if (slotsX[i].HasAtt("hiddenby")) {
-                        string[] hiding = slotsX[i].att("hiddenby").Split(',');
-                        foreach (string s in hiding) {
-                            tSD.hiddenBy.Add(int.Parse(s));
+                    if (slotsX[i].HasAtt("hiddenby")) { // a method to convert a string to two numbers. The hiddenBy in the slot id is a string (Ex. "18, 19").
+                        string[] hiding = slotsX[i].att("hiddenby").Split(','); // this is to seperate the string to two strings being seperated by the ",". (Ex. ["18"] ["19"]).
+                        foreach (string s in hiding) { 
+                            tSD.hiddenBy.Add(int.Parse(s)); // convert the two strings into integers.
                         }
                     }
                     slotDefs.Add(tSD);
@@ -86,15 +86,5 @@ public class Layout : MonoBehaviour {
             }
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
